@@ -6,6 +6,7 @@ export default function Blog() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
+    document.title = "Blog";
     async function getArticles() {
       const request = await fetch("https://api.spaceflightnewsapi.net/v3/articles");
       const response = await request.json();
@@ -16,19 +17,19 @@ export default function Blog() {
   }, []);
 
   return (
-    <section>
-      <h1>Blog</h1>
-      <p>Berikut ini adalah berita-berita tentang space flight</p>
+    <section className="section">
+      <h1 className="section-title">Blog</h1>
+      <p className="section-desc">Berikut ini adalah berita-berita tentang space flight</p>
       {loading && <i>Loading articles ...</i>}
       {!loading && (
-        <div>
+        <div className="articles">
           {articles.map((articles) => {
             return (
-              <article key={articles.id}>
-                <h2>
+              <article key={articles.id} className="article">
+                <h2 className="article-title">
                   <Link to={`/blog/${articles.id}`}>{articles.title}</Link>
                 </h2>
-                <time>{new Date(articles.publishedAt).toLocaleDateString}</time>
+                <time className="article-time">{new Date(articles.publishedAt).toLocaleDateString}</time>
               </article>
             );
           })}
